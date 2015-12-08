@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--LinearLayout: Ordena los elementos uno debajo de otro
+        android:orientation="vertical" Necesario para LinearLayout -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+    <!--layout_*: propiedad del padre LinearLayout
+        match_parent: Ocupa_todo el espacio del padre
+        wrap_content: Ajusta al contenido
+        layout_weight: Proporción de los elementos
+                       (necesita que layout_height sea 0dp)
+        layout_height y layout_width son obligatorios
+
+        AbsoluteLayout: Usa unidades fijas, está desfasado.
+        Usar siempre unidades relativas
+
+        Para texto el tamaño es sp (densidad de pantalla y txt del sistema)
+       -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/welcome_message"
+        android:background="@color/colorPrimaryDark"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <!--gravity: ajusta los elementos relativo al padre -->
+        <EditText
+            android:id="@+id/edit_txt_name"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name" />
+        <!--hint: Texto de ayuda -->
+        <Button
+            android:id="@+id/btn_say_hello"
+            android:layout_gravity="bottom|center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/say_hello" />
+    </FrameLayout>
+</LinearLayout>
