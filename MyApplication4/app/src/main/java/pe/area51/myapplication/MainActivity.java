@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final int TIMER_FRECUENCY = 1000;
+    public static final int TIMER_FRECUENCY = 1;
 
     private TextView displayTxtView;
     private Button toggleTimerBtn;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toggleTimerBtn = (Button) findViewById(R.id.btn_toggleTimer);
         toggleTimerBtn.setOnClickListener(this);
         toggleTimerBtn.setText(R.string.start_timer);
+        displayTxtView.setText("0");
         repetitiveTask = new RepetitiveTask(TIMER_FRECUENCY, new Runnable() {
             @Override
             public void run() {
@@ -50,8 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (!repetitiveTask.isRunning()) {
+            toggleTimerBtn.setText(R.string.stop_timer);
             repetitiveTask.start(false);
         }else{
+            toggleTimerBtn.setText(R.string.start_timer);
             repetitiveTask.stop();
         }
     }
