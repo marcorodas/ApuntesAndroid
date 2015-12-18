@@ -1,4 +1,4 @@
-package area51pe.listfragments;
+package area51pe.fragmentmanager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 /**
  * Created by alumno on 17/12/15.
  */
-public class ListFragment extends Fragment{
+public class FragmentContent extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list,container,false);
+        return inflater.inflate(R.layout.fragment_content, container,false);
     }
-
 }
