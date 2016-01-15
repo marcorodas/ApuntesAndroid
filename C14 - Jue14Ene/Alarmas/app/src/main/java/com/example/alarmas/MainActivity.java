@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             registerAlarm(timeInSeconds);
         }
         catch (NumberFormatException e){
-            Toast.makeText(MainActivity.this,"Ingrese un numero valido", Toast.LENGTH_SHORT);
+            Toast.makeText(MainActivity.this,"Ingrese un numero valido", Toast.LENGTH_SHORT).show();
         }
     }
 }
