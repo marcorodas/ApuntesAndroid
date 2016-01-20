@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SharedPreferences</string>
+    <string name="last_visitor">Ultimo Visitante: %s</string>
+    <string name="register_visitor">Registrar Visitante</string>
+    <string name="greetings">Hola %s!</string>
+    <string name="visitor_name_hint">Nombre</string>
+    <string name="first_visitor">Eres el primer visitante!</string>
+</resources>
