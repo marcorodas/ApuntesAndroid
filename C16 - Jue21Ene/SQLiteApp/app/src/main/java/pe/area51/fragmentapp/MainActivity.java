@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         listFragment.setFragmentInterface(new ListFragment.FragmentInterface() {
             @Override
             public void onNoteSelected(Note note) {
-                Toast.makeText(MainActivity.this, note.getTitle(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, note.getTitle().concat(" ID:").concat(String.valueOf(note.getId())), Toast.LENGTH_SHORT).show();
             }
         });
         final FragmentManager fragmentManager = getSupportFragmentManager();

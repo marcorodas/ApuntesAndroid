@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,10 +24,19 @@ import java.util.List;
 public class ListFragment extends Fragment {
 
     private final static int TEST_NOTES_COUNT = 100;
-    private List<Note> notes;
+
+    private SQLiteManager sqLiteManager;
     private ListView listView;
+    private NotesAdapter notesAdapter;
 
     private FragmentInterface fragmentInterface;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        sqLiteManager = SQLiteManager.getInstance(getContext());
+    }
 
     @Nullable
     @Override
@@ -37,8 +49,9 @@ public class ListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        notes = getTestNotes(TEST_NOTES_COUNT);
-        listView.setAdapter(new NotesAdapter(getActivity(), notes));
+        final List<Note> notes = getNotes();
+        notesAdapter = new NotesAdapter(getActivity(), notes);
+        listView.setAdapter(notesAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,6 +60,31 @@ public class ListFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.list_fragment,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_list_insert_note:
+                insertNoteAndUpdateAdapter();
+                return true;
+        }
+        return false;
+    }
+
+    private void insertNoteAndUpdateAdapter(){
+        final String title = "Test Tittle";
+        final String content = "Test Content";
+        final long creationTimeStamp = System.currentTimeMillis();
+        final long id = sqLiteManager.insertNote(new Note(-1, title, content, creationTimeStamp));
+        final Note note = new Note(id,title,content,creationTimeStamp);
+        notesAdapter.add(note);
+        notesAdapter.notifyDataSetChanged();
     }
 
     private static ArrayList<Note> getTestNotes(final int count) {
@@ -60,6 +98,10 @@ public class ListFragment extends Fragment {
             notes.add(note);
         }
         return notes;
+    }
+
+    private ArrayList<Note> getNotes() {
+        return sqLiteManager.getNotes();
     }
 
     public static class NotesAdapter extends ArrayAdapter<Note> {
